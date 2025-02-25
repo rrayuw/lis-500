@@ -1,4 +1,14 @@
-/* General Styles */
+/*
+   This CSS stylesheet is applied to all HTML pages
+   We chose a blue/dark-blue color scheme to evoke a clean, professional look
+*/
+
+/* ======================================
+   GENERAL STYLES
+   - Provide a clean, readable font
+   - Set a neutral background
+   - Define global text color for contrast
+====================================== */
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
@@ -7,9 +17,13 @@ body {
     color: #333;
 }
 
-/* Navigation Bar */
+/* ======================================
+   NAVIGATION BAR
+   - Dark blue background to anchor the top of the page visually
+   - Centered menu with subtle hover underline for clarity and accessibility
+====================================== */
 nav {
-    background-color: #0073e6;
+    background-color: #003366;
     padding: 10px 0;
 }
 
@@ -25,23 +39,39 @@ nav ul li {
     margin: 0 15px;
 }
 
+/*
+   We use an underline on hover for better user feedback and to reinforce the clickable nature of the nav links.
+*/
 nav ul li a {
     text-decoration: none;
-    color: white;
+    color: #fff;
     font-weight: bold;
-    transition: color 0.3s ease;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, text-decoration 0.3s ease;
 }
 
 nav ul li a:hover {
-    color: #ffcc00;
+    background-color: #0050A0;
+    text-decoration: underline;
+    color: #fff;
 }
 
-/* Header */
+/* ======================================
+   HEADER
+   - Large spacing for visual impact
+   - Noticeable background gradient to add depth and differentiate from the nav bar
+   - Headline in white for maximum contrast against the dark background
+====================================== */
 header {
     text-align: center;
     padding: 50px 20px;
-    background-color: #004a99;
-    color: white;
+    /*
+       Using a linear gradient (135deg) from very dark navy to a bright blue
+       ensures a distinct visual effect.
+    */
+    background: linear-gradient(135deg, #002147, #0050A0);
+    color: #fff;
 }
 
 header h1 {
@@ -49,15 +79,23 @@ header h1 {
     font-size: 2.5em;
 }
 
-/* Main Content */
+/* ======================================
+   MAIN CONTENT CONTAINER
+   - Restrict width to improve readability
+   - Center alignment in larger viewports
+====================================== */
 main {
     max-width: 80%;
     margin: 0 auto;
     text-align: center;
 }
 
+/*
+   .container is used for generic page sections that need
+   a white background with subtle shadows to stand out.
+*/
 .container {
-    background-color: white;
+    background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     padding: 30px;
@@ -65,7 +103,11 @@ main {
     max-width: 800px;
 }
 
-/* Bullet Points */
+/* ======================================
+   BULLET POINTS
+   - Inline-block used to have them centered when needed
+   - Left text-align for better readability
+====================================== */
 ul {
     display: inline-block;
     text-align: left;
@@ -73,9 +115,13 @@ ul {
     line-height: 1.6;
 }
 
-/* Profile Sections */
+/* ======================================
+   PROFILE SECTIONS
+   - Similar container styling but used for user profile info
+   - Full flexibility for different layouts
+====================================== */
 .profile {
-    background-color: white;
+    background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     padding: 30px;
@@ -89,12 +135,16 @@ ul {
     align-items: center;
 }
 
+/*
+   A circular image with a solid blue border helps emphasize the profile.
+   The object-fit ensures we maintain the aspect ratio within the circle.
+*/
 .profile-image {
     width: 150px;
     height: 150px;
     border-radius: 50%;
     object-fit: cover;
-    border: 3px solid #0073e6;
+    border: 3px solid #0050A0;
 }
 
 .profile-info {
@@ -102,19 +152,30 @@ ul {
     text-align: left;
 }
 
+/*
+   Heading color matches the overall blue palette.
+   This consistency ties the branding together.
+*/
 .profile h2 {
-    color: #004a99;
+    color: #003366;
     margin-top: 0;
 }
 
-/*Home Page styles*/
+/* ======================================
+   HOME PAGE WELCOME IMAGE
+   - Slight shadow and rounded edges for a polished presentation
+====================================== */
 .welcome-image {
     width: 30%;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
-/* Tech Hero Styles */
+/* ======================================
+   HERO SECTIONS
+   - Uses CSS Grid to alternate text & images
+   - For smaller screens, it collapses into a single column
+====================================== */
 .hero-grid {
     display: grid;
     grid-template-columns: 1fr 2fr;
@@ -129,13 +190,21 @@ ul {
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
+/*
+   For hero content, maintain a clear heading style
+   that stands out from normal text, using a bottom border.
+*/
 .hero-content h2 {
-    color: #004a99;
-    border-bottom: 2px solid #0073e6;
+    color: #0050A0;
+    border-bottom: 2px solid #0050A0;
     padding-bottom: 10px;
     margin-bottom: 20px;
 }
 
+/*
+   .section-box is a flexible container for various content areas,
+   keeping background subtle with #f8f9fa and light border radius.
+*/
 .section-box {
     margin-bottom: 30px;
     padding: 20px;
@@ -144,15 +213,19 @@ ul {
 }
 
 .section-box h2 {
-    color: #0073e6;
+    color: #0050A0;
     margin-top: 0;
 }
 
 .section-box h3 {
-    color: #0073e6;
+    color: #0050A0;
     margin-top: 0;
 }
 
+/*
+   Resource links arranged horizontally, styled as "pills"
+   (rounded corners) for a modern look.
+*/
 .resource-links {
     list-style: none;
     padding: 0;
@@ -162,8 +235,8 @@ ul {
 }
 
 .resource-links a {
-    background-color: #0073e6;
-    color: white;
+    background-color: #003366;
+    color: #fff;
     padding: 10px 20px;
     border-radius: 25px;
     text-decoration: none;
@@ -171,18 +244,26 @@ ul {
 }
 
 .resource-links a:hover {
-    background-color: #004a99;
+    background-color: #0050A0;
 }
 
+/*
+   Blockquotes get a left border in the same accent color as headings.
+   This ties in with the palette and sets apart quoted text.
+*/
 blockquote {
-    border-left: 4px solid #0073e6;
+    border-left: 4px solid #0050A0;
     margin: 20px 0;
     padding-left: 20px;
     color: #666;
     font-style: italic;
 }
 
-/* Responsive Design */
+/* ======================================
+   RESPONSIVE DESIGN
+   - Re-flow certain containers for smaller screens
+   - Focus on readability and preventing overflow
+====================================== */
 @media (max-width: 768px) {
     .profile-container {
         flex-direction: column;
