@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Machine Learning</title>
+  <link rel="stylesheet" href="css/stylepage.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/speech-commands@0.4.0/dist/speech-commands.min.js"></script>
+</head>
+<body>
+  <!--Nav Bar -->
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about-me.html">About</a></li>
+      <li><a href="resources.html">Resources</a></li>
+      <li><a href="tech-hero.html">Tech Hero</a></li>
+      <li><a href="machine-learning.html">Machine Learning</a></li>
+    </ul>
+  </nav>
+
+  <!--Header -->
+  <header>
+    <h1>Machine Learning</h1>
+    <h2>Teachable Machine Audio Model</h2>
+  </header>
+
+  <!--  Main Content-->
+  <main>
+    <div class="container">
+
+      <!-- Section: ML model -->
+      <section class="section-box">
+        <h2>Try Our Model</h2>
+        <div>
+          <!-- Start and Stop buttons -->
+          <button type="button" onclick="init()">Start</button>
+          <button type="button" onclick="stopListening()">Stop</button>
+        </div>
+        <!--  Contains the model's prediction(s)      -->
+        <div id="label-container"></div>
+      </section>
+
+      <section class="section-box">
+        <h2>Overview</h2>
+      </section>
+
+    </div>
+  </main>
+
+  <script type="text/javascript">
+    // global variable for recognizer so it can be accessed in both functions
+    let recognizer;
+
+    // function to create and load the model
+    async function createModel() {
+      const URL = "https://teachablemachine.withgoogle.com/models/J1rcTvoT-/";
+      const checkpointURL = URL + "model.json";
+      const metadataURL = URL + "metadata.json";
+
+      const recognizer = speechCommands.create(
+              "BROWSER_FFT",   // Type of Fourier transform
+              undefined,       // Using default vocabulary feature
+              checkpointURL,
+              metadataURL
+      );
+      await recognizer.ensureModelLoaded();
+      return recognizer;
+    }
+
+    // Start listening function with a "Loading..." message
+    async function init() {
+      const labelContainer = document.getElementById("label-container");
+      labelContainer.innerHTML = "";
+
+      // show loading message
+      const loadingMessage = document.createElement("h2");
+      loadingMessage.id = "ml-output-loading";
+      loadingMessage.innerText = "Loading...";
+      labelContainer.appendChild(loadingMessage);
+
+      function getLabelWithMaxScore(labels, scores) {
+        let maxIndex = 0;
+        for (let i = 1; i < scores.length; i++) {
+          if (scores[i] > scores[maxIndex]) {
+            maxIndex = i;
+          }
+        }
+        return labels[maxIndex]
+      }
+
+      // Initialize recognizer
+      recognizer = await createModel();
+
+      const classLabels = recognizer.wordLabels(); // Get class labels
+      // create a single element to display the highest-confidence prediction
+      const outputHeader = document.createElement("h2");
+      outputHeader.id = "ml-output-label"
+      labelContainer.appendChild(outputHeader);
+
+      // Start listening for results and display probability scores.
+      recognizer.listen(result => {
+        // remove loading text (if it's still there) once we get results
+        const loadingElement = document.getElementById("ml-output-loading");
+        if (loadingElement) {
+          loadingElement.remove();
+        }
+
+        // show the best prediction text
+        const scores = result.scores;
+        outputHeader.innerText = getLabelWithMaxScore(classLabels, scores)
+      }, {
+        includeSpectrogram: true,
+        probabilityThreshold: 0.75,
+        invokeCallbackOnNoiseAndUnknown: true,
+        overlapFactor: 0.50
+      });
+    }
+
+    // function to stop the model from listening
+    function stopListening() {
+      if (recognizer) {
+        const labelContainer = document.getElementById("label-container");
+        labelContainer.innerHTML = "";
+        recognizer.stopListening();
+      }
+    }
+  </script>
+</body>
+</html>
