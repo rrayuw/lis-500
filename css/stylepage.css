@@ -272,6 +272,12 @@ button:hover {
     margin-top: 30px;
 }
 
+/* Videos */
+video {
+    width: 100%;
+    height: auto;
+}
+
 /*
    Blockquotes get a left border in the same accent color as headings.
    This ties in with the palette and sets apart quoted text.

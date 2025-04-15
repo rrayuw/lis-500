@@ -30,7 +30,7 @@
   <main>
     <div class="container">
 
-      <!-- Section: ML model -->
+      <!-- Section: ML model experimentation -->
       <section class="section-box">
         <h2>Try Our Model</h2>
         <div>
@@ -42,8 +42,119 @@
         <div id="label-container"></div>
       </section>
 
+      <!-- Section: How to use the model -->
       <section class="section-box">
-        <h2>Overview</h2>
+        <h2>How to Use The Model</h2>
+        <p>Press the Start button and grant access to your microphone. Note that we do not collect any data
+          as the model listens locally in your browser.
+        </p>
+        <p>
+          Try speaking or making random noise. The model will interpret any audio and classify
+          as either human voice input or background noise.
+        </p>
+        <p>
+          When there is mostly ambient noise, like distant chatter or
+          fan humming, the page displays “Background Noise” with a high confidence level. If the sounds match typical
+          speech patterns, it will classify them as “Voice Input.”
+        </p>
+      </section>
+
+
+      <!-- Section: Project Overview -->
+      <section class="section-box">
+        <h2>Project Overview</h2>
+        <p>
+          Our model is a simple supervised learning classifier trained to distinguish between speech and non-speech
+          audio. It was created using Google’s Teachable Machine, which uses a neural network under the hood to analyze
+          audio features. In practice, this means the model “listens” for sound patterns that it associates with
+          speech, such as distinct pitches, formants, and energy spikes, versus more uniform or unstructured noise
+          patterns found in ambient backgrounds.
+        </p>
+        <h3>How We Trained The Model</h3>
+        <p>
+          We began by collecting audio samples for these two categories. For “Background Noise,” we recorded
+          ambient sounds in various settings: a quiet study room with mild fan noise, a hallway with distant
+          chatter, and a library with hushed activity. For “Voice Input,” we recorded short spoken phrases, such
+          as “Hello,” “Testing,” “One, two, three”, and tried to vary each sample’s pitch, volume, and speed. The
+          diversity of these recordings helped the model learn a range of typical speech characteristics versus
+          general noise.
+        </p>
+        <video controls>
+          <source src="static/assets/ml-video-2.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </section>
+
+      <!-- Section: Learning Process -->
+      <section class="section-box">
+        <h2>Learning Process</h2>
+        <p>
+          Our process involved a blend of technical trouble-shooting, data collection, and ethical considerations.
+          First, we encountered an unexpected hurdle: the microphone we used had robust noise-canceling functionality,
+          which initially suppressed the background sounds we intended to capture. Thus, to gather accurate background noise
+          samples, we had to turn the microphone sensitivity up considerably. Otherwise, the default mic settings
+          filtered out lower-level background sounds so effectively that the classifier had little to learn from.
+          This highlights how hardware characteristics can directly influence the quality and range of training data.
+        </p>
+        <p>
+          Moreover, we discovered firsthand that Teachable Machine’s outputs are only as fair and
+          accurate as the inputs we provide. Early trials indicated that the model might mis-classify
+          certain types of sounds or softer speech. As a result, we made sure to collect a larger,
+          more diverse set of samples. This meant recording multiple voice clips at varying volumes and
+          intonations, and capturing ambient sounds in several different environments (quiet, moderately busy,
+          more chaotic). We also learned that a single, uniform dataset, such as only one person speaking in an isolated
+          room, can limit the model’s ability to generalize. Thus, the more varied data, the better the classifier
+          performed in recognizing an array of real-world scenarios.
+        </p>
+        <p>
+          Lastly, we came to consider ethical and user-focused design considerations, particularly around privacy.
+          Our implementation ensures that audio is processed in real time in the user’s browser and is not retained.
+          While a small classroom project has limited scope, the lessons carry over to larger contexts: the more
+          transparent we are about what data we collect, how we process it, and why, the more trust users can place in
+          our applications dealing with AI.
+        </p>
+      </section>
+
+      <!-- Section: Reflecting from the Buolawmini's book -->
+      <section class="section-box">
+        <h2>Reflections from Buolawmini's Unmasking AI</h2>
+        <p>
+          Buolamwini’s Unmasking AI underscores how bias and inequities often creep into AI applications, whether
+          intended or not. Even though our project is small-scale, many of her key lessons apply to our experience.
+        </p>
+        <h3>Recognizing Bias</h3>
+        <p>
+          Buolamwini’s work emphasizes that datasets ultimately shape AI’s outcomes. Our
+          experience turning up the microphone sensitivity to capture enough background noise, and
+          gathering extra samples for different types of audio, demonstrated the fragile nature of AI models. If we had
+          stuck to a single accent, the model would have been skewed toward those conditions.
+          So we think that underscores the importance of actively seeking diverse, representative data.
+        </p>
+        <h3>Transparency and Consent</h3>
+        <p>
+          One of the central themes in Unmasking AI is that AI systems frequently operate with opaque data pipelines.
+          Our project highlights the difference that clear communication can make: we explicitly state that no
+          recordings are stored and the audio is only processed locally. Though it may seem like a small
+          detail, such transparency can foster user confidence in how and why the data is being used; this echos
+          Buolamwini’s call for more open, accountable AI systems.
+        </p>
+        <h3>Accountability</h3>
+        <p>
+          Buolamwini stresses the need for accountability from those who create and deploy AI systems. While our
+          classroom model is deployed only on a small scale, it exemplifies how even a simple classifier
+          could be repurposed in harmful ways if placed in the wrong hands or used without user consent.
+          This project taught us that designing AI also involves reflecting on its potential misuse and ensuring safety
+          mechanisms, like disclaimers, are in place.
+        </p>
+      </section>
+
+      <!--      Section: Demonstration Video -->
+      <section class="section-box">
+        <h2>Demonstration Video</h2>
+        <video controls>
+          <source src="static/assets/ml-video-1.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
       </section>
 
     </div>
