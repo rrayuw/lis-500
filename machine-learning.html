@@ -220,6 +220,7 @@
       loadingMessage.innerText = "Loading...";
       labelContainer.appendChild(loadingMessage);
 
+      // given class labels and the confidence scores, return the label with highest score and the score itself
       function getLabelWithMaxScore(labels, scores) {
         let maxIndex = 0;
         for (let i = 1; i < scores.length; i++) {
@@ -227,17 +228,28 @@
             maxIndex = i;
           }
         }
-        return labels[maxIndex]
+        return [labels[maxIndex], scores[maxIndex]]
+      }
+
+      // given a number, round up to the hundredth and then multiply by 100 to convert to percentage
+      function getPercentage(num) {
+        const float = parseFloat(num)
+        return (Math.ceil(float * 10000) / 100).toFixed(2) + "%"
       }
 
       // Initialize recognizer
       recognizer = await createModel();
 
       const classLabels = recognizer.wordLabels(); // Get class labels
-      // create a single element to display the highest-confidence prediction
+
+      // create elements to display the highest-confidence prediction alongside the confidence
       const outputHeader = document.createElement("h2");
       outputHeader.id = "ml-output-label"
       labelContainer.appendChild(outputHeader);
+
+      const confidenceHeader = document.createElement("h3")
+      labelContainer.appendChild(confidenceHeader)
+
 
       // Start listening for results and display probability scores.
       recognizer.listen(result => {
@@ -247,9 +259,15 @@
           loadingElement.remove();
         }
 
-        // show the best prediction text
+        // show the best prediction text and confidence score
         const scores = result.scores;
-        outputHeader.innerText = getLabelWithMaxScore(classLabels, scores)
+        const bestResult = getLabelWithMaxScore(classLabels, scores)
+
+        const bestLabel = bestResult[0]
+        const bestScore = bestResult[1]
+        outputHeader.innerText = bestLabel
+        confidenceHeader.innerText = `(${getPercentage(bestScore)} confidence)`
+
       }, {
         includeSpectrogram: true,
         probabilityThreshold: 0.75,
